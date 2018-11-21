@@ -1,6 +1,8 @@
 import os
 import requests
 import math
+import threading
+from threading import Thread
 
 class ImageClassifier:
     def formatTag(self, tag):
@@ -46,29 +48,58 @@ class ImageClassifier:
         for i in range (0, len(urls)):
             print(self.assessViolence(self.getRawImageData(urls[i])))
 
+    def assessSingleImage(self, account, i, current_account_classifications):
+            #writes date
+            current_account_classifications[i - 1] = account[i - 1] # account[i - 1] is the date of the post
+
+            #gets raw image data
+            rawImageData = self.getRawImageData(account[i]) # account[i] is the post url
+
+            #gets threat level of image
+            threatLevel = float(self.assessViolence(rawImageData))
+            #rounds threat level to 2 decimals
+            threatLevel = round(threatLevel, 2)
+
+            #writes threat level to file
+            current_account_classifications[i] = str(threatLevel)
+
+    def getSingleAccountData(self, account, output_array):
+        current_account_classifications = [None] * len(account)
+        #append username
+        current_account_classifications[0] = account[0]
+
+        #create an empty list of threads
+        threads = []
+
+        #loops through all posts in account
+        #since the loop goes by twos, account[i] = the post url --and-- account[i - 1] = the date of the post
+        for i in range(2, len(account), 2):
+            #create a thread for each image to classify each image for an account at the same time
+            threads.append(Thread(target = self.assessSingleImage, args = (account, i, current_account_classifications,)))
+            threads[int(i / 2 - 1)].start()
+
+        #wait for threads to finish
+        for i in range(1, len(threads)):
+            threads[i].join()
+            
+        #append the risk level for the account to the output array
+        output_array.append(current_account_classifications)
+
     def getImageAccountData(self, accountData):
+        threads_a = []
         output_array = []
+        count = 0
+
+        #loop though each account
         for account in accountData[0]:
-            current_account_classifications = []
-            #append username
-            current_account_classifications.append(account[0])
-            #loops through all posts in account
-            #since the loop goes by twos, account[i] = the post url --and-- account[i - 1] = the date of the post
-            for i in range(2, len(account), 2):
-                #writes date
-                current_account_classifications.append(account[i - 1]) # account[i - 1] is the date of the post
+            threads_a.append(Thread(target = self.getSingleAccountData, args = (account, output_array,)))
+            threads_a[count].start()
+            count += 1
 
-                #gets raw image data
-                rawImageData = self.getRawImageData(account[i]) # account[i] is the post url
+        #wait for threads to finish
+        for i in range(0, count):
+            threads_a[i].join()
 
-                #gets threat level of image
-                threatLevel = float(self.assessViolence(rawImageData))
-                #rounds threat level to 2 decimals
-                threatLevel = round(threatLevel, 2)
-
-                #writes threat level to file
-                current_account_classifications.append(str(threatLevel))
-            output_array.append(current_account_classifications)
         return output_array
 
     def classify(self, accountData):

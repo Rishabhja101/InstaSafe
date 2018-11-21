@@ -1,6 +1,12 @@
+import os
 from InstagramScraper import InstagramScraper
 from ImageClassifier import ImageClassifier
 from LanguageProcessor import LanguageProcessor
+
+#set all file paths relative to the location of this program
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 #Instagram Scraping
 instaScraper = InstagramScraper()
