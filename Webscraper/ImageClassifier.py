@@ -35,8 +35,9 @@ class ImageClassifier:
         flag_words = open("violentTags.txt", "r").read().split(", ")
         for i in range (0, 10):
             for n in range (0, len(flag_words)):
-                if flag_words[n] in array[i].split(" ")[0]:
-                    threat_level += float(array[i].split(" ")[1])
+                if i < len(array):
+                    if flag_words[n] in array[i].split(" ")[0]:
+                        threat_level += float(array[i].split(" ")[1])
         if threat_level > 0:
             return '{0:.{1}f}'.format(math.log10(threat_level) * 25, 2)
         else:
@@ -81,7 +82,7 @@ class ImageClassifier:
         #wait for threads to finish
         for i in range(1, len(threads)):
             threads[i].join()
-            
+
         #append the risk level for the account to the output array
         output_array.append(current_account_classifications)
 
