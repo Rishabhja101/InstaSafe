@@ -73,7 +73,13 @@ class InstagramScraper:
 
             #gets container the caption is in and converts to string
             caption_container = post.get("edge_media_to_caption").get("edges")
-            caption_container = str(caption_container[0])
+
+            #protects against user not having caption on a post
+            try:
+                caption_container = str(caption_container[0])
+            except:
+                captions.append("")
+                continue
 
             #substrings caption container to just be the caption
             caption = caption_container[caption_container.index(":") + 1 :]
