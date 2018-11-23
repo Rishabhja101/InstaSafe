@@ -28,18 +28,18 @@ os.chdir(dname)
 instaScraper = InstagramScraper()
 account_data = instaScraper.scrape("usernames.txt")
 
-print(account_data)
+print("Instagram Scraping Complete")
 
 #initialize output variables for image classification and natural language processing
 image_classifier_output_raw = []
 language_processor_output_raw = []
 
 #create a thread for image classigication
-thread_imageClassification = (Thread(target = imageClassification, args = (account_data, image_classifier_output_raw,)))
+thread_imageClassification = Thread(target = imageClassification, args = (account_data, image_classifier_output_raw,))
 thread_imageClassification.start()
 
 #create a thread for natural language processing
-thread_naturalLanguageProcessing = (Thread(target = naturalLanguageProcessing, args = (account_data, language_processor_output_raw,)))
+thread_naturalLanguageProcessing = Thread(target = naturalLanguageProcessing, args = (account_data, language_processor_output_raw,))
 thread_naturalLanguageProcessing.start()
 
 #wait for all image classification and natural language processing to finish running
