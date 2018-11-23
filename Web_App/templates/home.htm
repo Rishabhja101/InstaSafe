@@ -1,0 +1,67 @@
+<!-- "form" is a reference to the login form passed into the html file -->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Instasafe</title>
+  </head>
+
+  <body>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+      {% if messages %}
+        {%for category, message in messages %}
+          <div style="text-align: center;
+          background-color: red;">
+            {{message}}
+          </div>
+        {%endfor%}
+      {%endif%}
+    {%endwith%}
+
+    <div>
+      <form class="login-form" action="" method="post">
+        {{form.hidden_tag()}} <!-- something to do with the secret key -->
+        <legend><u>Sign In</u></legend>
+        <div>
+          {{form.username.label}}<br/>
+          {{form.username}}
+        </div>
+
+        <div>
+          {{form.password.label}}<br/>
+          {{form.password}}
+        </div>
+
+        <div class="submit-button">
+          {{form.submit}}
+        </div>
+      </form>
+    </div>
+
+    <style>
+      .login-form {
+        display: block;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      .login-form legend {
+        font-size: 1.5em;
+        padding: 10px;
+      }
+
+      .login-form div {
+        display: block;
+        padding: 10px;
+        font-size: 18px;
+      }
+
+      .submit-button {
+        transform: scale(1.2);
+      }
+    </style>
+  </body>
+
+</html>
