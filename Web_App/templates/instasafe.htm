@@ -17,5 +17,24 @@
     {%endwith%}
 
     <h1>Instasafe</h1>
+
+    <div>
+      <form class="usernames-form" action="" method="post">
+        {{form.hidden_tag()}}
+        <div>
+          {{form.username_list.label}}<br/>
+          {{form.username_list}}
+        </div>
+        <div>
+          {{form.submit}}
+        </div>
+      </form>
+    </div>
+
+    <style>
+      :root {
+        text-align: center
+      }
+    </style>
   </body>
 </html>
