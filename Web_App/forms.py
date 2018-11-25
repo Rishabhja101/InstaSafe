@@ -8,3 +8,8 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
 
     submit = SubmitField("Login")
+
+class InstasafeForm(FlaskForm):
+    username_list = StringField("Enter a list of usernames each seperated by a comma", validators=[DataRequired()])
+
+    submit = SubmitField("Submit")
