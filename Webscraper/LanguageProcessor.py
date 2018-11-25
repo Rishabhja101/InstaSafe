@@ -38,7 +38,7 @@ class LanguageProcessor:
             threads[i - 1].start()
         for i in range(0, len(threads)):
             threads[i].join()
-        current_account_output.append(output_a[0])
+        current_account_output.append(output_a)
         output[x] = current_account_output
 
     def getCaptionAccountData(self, accountData):
