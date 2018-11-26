@@ -24,6 +24,7 @@ def home():
 @app.route("/instasafe-logged-in-successfully?=0508436b60727130275c01c80f493267", methods=["GET", "POST"])
 def instasafe():
     form = InstasafeForm()
+    instasafe_output_array = []
 
     if(form.validate_on_submit()):
         usernames_string = form.username_list.data.replace(" ", "")
@@ -35,9 +36,9 @@ def instasafe():
         output_file.close()
 
         instasafe = Instasafe()
-        instasafe.run()
+        instasafe_output_array = instasafe.run()
 
-    return render_template("instasafe.htm", form=form)
+    return render_template("instasafe.htm", form=form, data=instasafe_output_array)
 
 if(__name__ == "__main__"):
     app.run(debug=True)
