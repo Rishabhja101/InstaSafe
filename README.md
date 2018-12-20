@@ -12,6 +12,7 @@
   <li><a href="https://pypi.org/project/beautifulsoup4/">Beautiful Soup 4</a></li>
   <li><a href="https://pypi.org/project/hatesonar/">Hate Sonar</a></li>
   <li><a href="https://pypi.org/project/emoji/">Emoji</a></li>
+  <li><a href="https://pypi.org/project/flask/">Flask</a></li>
 </ul>
 
 <h2><u>To Run:</u></h2>
