@@ -11,14 +11,12 @@ class Instasafe:
         imageClassifier = ImageClassifier()
         image_classifier_output = imageClassifier.classify(account_data)
         output.append(image_classifier_output)
-        print(image_classifier_output)
 
     #Natural Language Processing
     def naturalLanguageProcessing(self, account_data, output):
         languageProcessor = LanguageProcessor()
         language_processor_output = languageProcessor.process(account_data)
         output.append(language_processor_output)
-        print(language_processor_output)
 
     def run(self):
         #set all file paths relative to the location of this program
@@ -51,5 +49,14 @@ class Instasafe:
         image_classifier_output = image_classifier_output_raw[0]
         language_processor_output = language_processor_output_raw[0]
 
+        print("---------")
         print(image_classifier_output)
+        print("---------")
         print(language_processor_output)
+        print("---------")
+
+        return {
+            "image_classifier_output": image_classifier_output,
+            "language_processor_output": language_processor_output
+        }
+
