@@ -22,7 +22,7 @@ def home():
     return render_template("home.htm", form=form)
 
 @app.route("/instasafe-logged-in-successfully?=0508436b60727130275c01c80f493267", methods=["GET", "POST"])
-def instasafe():
+def instasafe(instasafe_output=None):
     form = InstasafeForm()
 
     if(form.validate_on_submit()):
@@ -35,7 +35,11 @@ def instasafe():
         output_file.close()
 
         instasafe = Instasafe()
-        instasafe.run()
+        instasafe_output = instasafe.run()
+
+    print("!--!")
+    print(instasafe_output)
+    print("!--!")
 
     return render_template("instasafe.htm", form=form)
 
