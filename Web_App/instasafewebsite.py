@@ -41,7 +41,7 @@ def instasafe(instasafe_output=None):
     print(instasafe_output)
     print("!--!")
 
-    return render_template("instasafe.htm", form=form)
+    return render_template("instasafe.htm", form=form, output=instasafe_output)
 
 if(__name__ == "__main__"):
     app.run(debug=True)

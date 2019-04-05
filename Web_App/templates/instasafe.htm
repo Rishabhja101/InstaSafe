@@ -35,8 +35,15 @@
     </div>
 
     <div>
-      <p>{{image_output}}</p>
-      <p>{{nlp_output}}</p>
+      {%for user_image_data in output["image_classifier_output"] %}
+        <p>{{ user_image_data }}</p>
+      {% endfor %}
+
+      <hr>
+      
+      {%for user_nlp_data in output["language_processor_output"] %}
+        <p>{{ user_nlp_data[1] }}</p>
+      {% endfor %}
     </div>
 
     <style>
