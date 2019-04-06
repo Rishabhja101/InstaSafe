@@ -26,11 +26,9 @@
         {{form.hidden_tag()}}
         <div class="form-group">
           {{form.username_list.label}}<br/>
-          <span class="form-control">{{form.username_list}}</span>
+          {{form.username_list(class_="form-control")}}
         </div>
-        <div class="btn btn-primary">
-          {{form.submit}}
-        </div>
+          {{form.submit(class_="btn btn-primary")}}
       </form>
     </div>
 
@@ -49,6 +47,12 @@
     <style>
       :root {
         text-align: center
+      }  
+
+      .usernames-form {
+        width: 60%;
+        display: block;
+        margin: 0 auto;
       }
     </style>
   </body>
